@@ -9,7 +9,7 @@ GPIO.setmode(GPIO.BCM)
 
 temp =[]
 hum = []
-time =[]
+timey =[]
 
 # read data using pin 14
 instance = dht11.DHT11(pin=14)
@@ -28,24 +28,27 @@ try:
 			time.sleep(10)
 			temp.append(result.temperature)
 			hum.append(result.humidity)
-			time.append(t.second)
-			loop =+ 1
-			print("Loop is :" + loop)
-			ex =+ 1
+			timey.append(str(t.hour)+":"+str(t.minute)+":"+str(t.second))
+			loop = loop + 1
+			print("Loop is :" + str(loop))
 			if loop == 6:
-				plt.plot(time,temp)
+				plt.plot(timey,temp)
 				plt.ylabel("temp")
 				plt.xlabel("time")
 				plt.grid()
-				plt.savefig("temp"+ ex +".png")
+				plt.savefig("temp"+ str(ex) +".png")
 				plt.clf()
-				plt.plot(time,hum)
+				plt.plot(timey,hum)
 				plt.ylabel("hum")
 				plt.xlabel("time")
 				plt.grid()
-				plt.savefig("hum"+ ex +".png")
+				plt.savefig("hum"+ str(ex) +".png")
 				plt.clf()
 				loop = 1
+				ex = ex + 1
+				temp = []
+				hum = []
+				timey=[]
 			if ex == 2:
 				break
 
